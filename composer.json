@@ -1,0 +1,24 @@
+{
+    "name": "webforce3/test",
+    "description": "Test de démonstration de compétence en développement web",
+	"version": "1.0.0",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "prefer-stable": true,
+	"authors": [
+        {
+            "name": "Thomas Dutrion",
+            "email": "thomas@engineor.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "webforce3/w": "^1.0"
+    },
+    "autoload": {
+	"files": [ "vendor/webforce3/w/W/globals.php" ],
+        "psr-4": {
+            "": "app/"
+        }
+    }
+}
