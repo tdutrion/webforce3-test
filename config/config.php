@@ -1,21 +1,53 @@
 <?php
 
+/*
+ * The default config lives here, but can be overridden in config.local.php.
+ * Some values can be set as environment variable as described in the 12factor app manifest: http://12factor.net/
+ */
 
 return [
-    //information de connexion à la bdd
-    'db_host' => 'localhost',                        //hôte (ip, domaine) de la bdd
-    'db_user' => 'root',                            //nom d'utilisateur pour la bdd
-    'db_pass' => '',                                //mot de passe de la bdd
-    'db_name' => '',                                //nom de la bdd
-    'db_table_prefix' => '',                        //préfixe ajouté aux noms de table
 
-    //authentification, autorisation
-    'security_user_table' => 'users',                //nom de la table contenant les infos des utilisateurs
-    'security_id_property' => 'id',                    //nom de la colonne pour la clef primaire
-    'security_username_property' => 'username',        //nom de la colonne pour le "pseudo"
-    'security_email_property' => 'email',            //nom de la colonne pour l'"email"
-    'security_password_property' => 'password',        //nom de la colonne pour le "mot de passe"
-    'security_role_property' => 'role',                //nom de la colonne pour le "role"
+    // +---------------------------------------------------------------------------------------------------------------+
+    // | Database connection details                                                                                   |
+    // +---------------------------------------------------------------------------------------------------------------+
 
-    'security_login_route_name' => 'login',            //nom de la route affichant le formulaire de connexion
+    // database host (ip, domain)
+    'db_host' => getenv('DB_HOST') ? getenv('DB_HOST') : 'localhost',
+
+    // database username
+    'db_user' => getenv('DB_USER') ? getenv('DB_USER') : 'root',
+
+    // database password
+    'db_pass' => getenv('DB_PASS') ? getenv('DB_PASS') : '',
+
+    // database name
+    'db_name' => getenv('DB_NAME') ? getenv('DB_NAME') : '',
+
+    // database table names prefix
+    'db_table_prefix' => getenv('DB_TABLE_PREFIX') ? getenv('DB_TABLE_PREFIX') : '',
+
+    // +---------------------------------------------------------------------------------------------------------------+
+    // | authentication, autorization                                                                                  |
+    // +---------------------------------------------------------------------------------------------------------------+
+
+    // name of the database table containing user details
+    'security_user_table' => 'users',
+
+    // name of the database column for the primary key
+    'security_id_property' => 'id',
+
+    // name of the database column for "username"
+    'security_username_property' => 'username',
+
+    // name of the database column for "email"
+    'security_email_property' => 'email',
+
+    // name of the database column for "password"
+    'security_password_property' => 'password',
+
+    // name of the database column for "role"
+    'security_role_property' => 'role',
+
+    // name of the route for login form
+    'security_login_route_name' => 'login',
 ];
