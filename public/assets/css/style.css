@@ -1,31 +1,15 @@
-html, body {
-	font-family: Consolas, monaco, monospace;
-	background-color: #272822;
-	color: #F8F8F2;
-}
-
-.container {
-	margin: 50px;
-}
-
-a {
-	text-decoration: none;
-	color: #A6E22E;
-}
-
-a:hover {
-	color: #F92672;
-}
-
-h1 {
-	color: #F92672;
-}
-
-h2 {
-	color: #66D9EF;
+body {
+    min-height: 2000px;
+    padding-top: 70px;
 }
 
 strong.highlight {
 	color: #F92672;
 	font-weight: bolder;
+}
+
+footer {
+    margin-top: 20px;
+    padding-top: 5px;
+    border-top: 1px solid #eeeeee;
 }

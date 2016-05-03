@@ -2,20 +2,27 @@
 
 <?php $this->start('main_content') ?>
 <h2>Administration</h2>
-<h3>Articles:</h3>
-<a href="<?= $this->url('admin_import') ?>">Importer les articles au format JSON</a>
+
+<div class="row">
+    <div class="col-md-4">
+        <a href="<?= $this->url('admin_import') ?>" class="btn btn-default">Importer les articles au format JSON</a>
+    </div>
+    <div class="col-md-8 text-right">
+        <?php if (count($articles) > 0): ?>
+        <?php $this->insert('admin/_search') ?>
+        <?php endif ?>
+    </div>
+</div>
+
 <?php if (count($articles) > 0): ?>
-<?php $this->insert('admin/_search') ?>
-<table>
+<h3>Articles:</h3>
+<table class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
-            <th>Titre</th>
-            <th>Date</th>
-            <th>Auteur</th>
-            <th>Contenu</th>
         </tr>
         <tr>
             <th>
+                Titre
                 <?php if (isset($queryStringParameters['order']) && $queryStringParameters['order'] == 'title' && isset($queryStringParameters['sort']) && $queryStringParameters['sort'] == 'ASC'): ?>
                 <span>▲</span>
                 <?php else: ?>
@@ -28,6 +35,7 @@
                 <?php endif; ?>
             </th>
             <th>
+                Date
                 <?php if (isset($queryStringParameters['order']) && $queryStringParameters['order'] == 'date_add' && isset($queryStringParameters['sort']) && $queryStringParameters['sort'] == 'ASC'): ?>
                 <span>▲</span>
                 <?php else: ?>
@@ -40,6 +48,7 @@
                 <?php endif; ?>
             </th>
             <th>
+                Auteur
                 <?php if (isset($queryStringParameters['order']) && $queryStringParameters['order'] == 'author' && isset($queryStringParameters['sort']) && $queryStringParameters['sort'] == 'ASC'): ?>
                 <span>▲</span>
                 <?php else: ?>
@@ -51,7 +60,7 @@
                 <a href="?<?= http_build_query(array_merge($queryStringParameters, ['order' => 'author', 'sort' => 'DESC'])) ?>">▼</a>
                 <?php endif; ?>
             </th>
-            <th></th>
+            <th>Contenu</th>
         </tr>
     </thead>
     <tbody>
@@ -70,31 +79,31 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3">
+            <td colspan="4">
                 <?php if ($totalPages > 1): ?>
-                    <?php if ($currentPage > 1): ?>
-                        <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => 1])) ?>"><<</a>
-                        <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => $currentPage - 1])) ?>"><</a>
-                    <?php else: ?>
-                        <span><<</span>
-                        <span><</span>
-                    <?php endif; ?>
-                    <?php for ($i = ($currentPage - 2); $i <= ($currentPage + 2); ++$i): ?>
-                        <?php if ($i > 0 && $i < $totalPages + 1): ?>
-                            <?php if ($i === $currentPage): ?>
-                                <span><?= $i ?></span>
-                            <?php else: ?>
-                                <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => $i])) ?>"><?= $i ?></a>
-                            <?php endif; ?>
-                        <?php endif; ?>
-                    <?php endfor; ?>
-                    <?php if ($currentPage < $totalPages): ?>
-                        <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => $currentPage + 1])) ?>">></a>
-                        <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => $totalPages])) ?>">>></a>
-                    <?php else: ?>
-                        <span>></span>
-                        <span>>></span>
-                    <?php endif; ?>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="<?= $currentPage < 2 ? 'disabled' : null ?>">
+                                <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => 1])) ?>">&lt;&lt;</a>
+                            </li>
+                            <li class="<?= $currentPage < 2 ? 'disabled' : null ?>">
+                                <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => ((($currentPage - 1) > 0) ? $currentPage - 1 : 1)])) ?>">&lt;</a>
+                            </li>
+                            <?php for ($i = ($currentPage - 2); $i <= ($currentPage + 2); ++$i): ?>
+                                <?php if ($i > 0 && $i < $totalPages + 1): ?>
+                                    <li class="<?= $i === $currentPage ? 'active' : null ?>">
+                                        <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => $i])) ?>"><?= $i ?></a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                            <li class="<?= $currentPage > ($totalPages - 1) ? 'disabled' : null ?>">
+                                <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => ((($currentPage + 1) <= $totalPages) ? $currentPage + 1 : $totalPages)])) ?>">&gt;</a>
+                            </li>
+                            <li class="<?= $currentPage > ($totalPages - 1) ? 'disabled' : null ?>">
+                                <a href="?<?= http_build_query(array_merge($queryStringParameters, ['page' => $totalPages])) ?>">&gt;&gt;</a>
+                            </li>
+                        </ul>
+                    </nav>
                 <?php endif; ?>
             </td>
         </tr>

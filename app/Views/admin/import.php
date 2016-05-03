@@ -4,5 +4,6 @@
 <h2>Administration</h2>
 <h3>Importer le fichier d'articles</h3>
 <a href="<?= $this->url('admin_index') ?>">Retourner à l'administration des articles</a>
+<hr>
 <?php $this->insert('admin/_upload') ?>
 <?php $this->stop('main_content') ?>
