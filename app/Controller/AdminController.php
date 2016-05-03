@@ -131,6 +131,9 @@ class AdminController extends BaseController
     public function article($id)
     {
         $article = $this->articleModel->find($id);
+        if (!$article) {
+            $this->showNotFound();
+        }
         parse_str(isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '', $queryStringParameters);
         $this->show('admin/article', [
             'article' => $article,
