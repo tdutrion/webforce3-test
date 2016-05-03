@@ -32,4 +32,10 @@ return [
         'Admin#article',
         'admin_article',
     ],
+    [
+        'GET|POST',
+        '/admin/article/search',
+        'Admin#search',
+        'admin_search',
+    ],
 ];

@@ -13,7 +13,7 @@ class AdminController extends BaseController
         $this->articleModel = new ArticleModel();
     }
     /**
-     * Administration home
+     * Administration home.
      *
      * Outputs a paginated and sortable list of articles.
      */
@@ -49,7 +49,7 @@ class AdminController extends BaseController
     }
 
     /**
-     * Import form
+     * Import form.
      *
      * Outputs an import form including a csrf token and a file upload field
      */
@@ -64,7 +64,7 @@ class AdminController extends BaseController
     }
 
     /**
-     * Processes the import and outputs errors on the form
+     * Processes the import and outputs errors on the form.
      */
     public function process_import()
     {
@@ -138,6 +138,24 @@ class AdminController extends BaseController
         $this->show('admin/article', [
             'article' => $article,
             'queryStringParameters' => $queryStringParameters,
+        ]);
+    }
+
+    /**
+     * Search articles and highlight search term.
+     */
+    public function search()
+    {
+        if (empty($_POST) || !isset($_POST['term'])) {
+            $this->redirectToRoute('admin_index');
+        }
+        $articles = $this->articleModel->search([
+            'title' => $_POST['term'],
+            'content' => $_POST['term'],
+        ]);
+        $this->show('admin/search', [
+            'articles' => $articles,
+            'term' => $_POST['term'],
         ]);
     }
 }

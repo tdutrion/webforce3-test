@@ -5,6 +5,7 @@
 <h3>Articles:</h3>
 <a href="<?= $this->url('admin_import') ?>">Importer les articles au format JSON</a>
 <?php if (count($articles) > 0): ?>
+<?php $this->insert('admin/_search') ?>
 <table>
     <thead>
         <tr>

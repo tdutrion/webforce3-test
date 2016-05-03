@@ -24,3 +24,8 @@ h1 {
 h2 {
 	color: #66D9EF;
 }
+
+strong.highlight {
+	color: #F92672;
+	font-weight: bolder;
+}
