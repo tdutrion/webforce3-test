@@ -13,7 +13,9 @@ class AdminController extends BaseController
         $this->articleModel = new ArticleModel();
     }
     /**
-     * Page d'accueil par défaut.
+     * Administration home
+     *
+     * Outputs a paginated and sortable list of articles.
      */
     public function index()
     {
@@ -46,6 +48,11 @@ class AdminController extends BaseController
         ]);
     }
 
+    /**
+     * Import form
+     *
+     * Outputs an import form including a csrf token and a file upload field
+     */
     public function import()
     {
         // generate a new CSRF token
@@ -56,6 +63,9 @@ class AdminController extends BaseController
         ]);
     }
 
+    /**
+     * Processes the import and outputs errors on the form
+     */
     public function process_import()
     {
         // redirect if not submitted
@@ -113,6 +123,11 @@ class AdminController extends BaseController
         $this->redirectToRoute('admin_import');
     }
 
+    /**
+     * Displays a single article found by id.
+     *
+     * @param $id
+     */
     public function article($id)
     {
         $article = $this->articleModel->find($id);
