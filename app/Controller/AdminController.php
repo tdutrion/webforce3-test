@@ -115,8 +115,21 @@ class AdminController extends BaseController
             ]);
         }
 
-        foreach ($articles as $article) {
-            $this->articleModel->insert($article);
+        foreach ($articles as $key => $article) {
+            try {
+                $this->articleModel->insert($article);
+            } catch (Exception $error) {
+                $errors[] = "L'objet {$key} n'a pas pu être importé";
+            }
+        }
+
+        if (!empty($errors)) {
+            // generate a new CSRF token
+            $_SESSION['csrf_token'] = md5(uniqid(mt_rand(), true));
+            // send to view
+            $this->show('admin/process_import', [
+                'errors' => $errors,
+            ]);
         }
 
         // process and send to database
