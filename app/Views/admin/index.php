@@ -57,7 +57,11 @@
     <tbody>
         <?php foreach ($articles as $article): ?>
         <tr>
-            <td><a href="<?= $this->url('admin_article', ['id' => $article['id']]) ?>?<?= http_build_query(array_merge($queryStringParameters, ['page' => $currentPage])) ?>"><?= $this->escape($article['title']) ?></a></td>
+            <td>
+                <a href="<?= $this->url('admin_article', ['id' => $article['id']]) ?>?<?= http_build_query(array_merge($queryStringParameters, ['page' => $currentPage])) ?>">
+                    <?= $this->escape($article['title']) ?>
+                </a>
+            </td>
             <td><?= $this->escape($article['date_add']) ?></td>
             <td><?= $this->escape($article['author']) ?></td>
             <td><?= $this->truncate($article['content'], 150)?></td>
