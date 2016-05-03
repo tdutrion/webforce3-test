@@ -27,7 +27,7 @@ return [
         'admin_process_import',
     ],
     [
-        'GET|POST',
+        'GET',
         '/admin/article/[i:id]',
         'Admin#article',
         'admin_article',
