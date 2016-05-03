@@ -15,6 +15,8 @@
             </li>
         </ul>
     </div>
+    <div id="articles">
+    </div>
 <?php $this->stop('main_content') ?>
 
 <?php $this->start('inline_scripts') ?>
@@ -24,6 +26,44 @@
     $(window).load(function() {
         $('.flexslider').flexslider({
             animation: "slide"
+        });
+    });
+    let app = {
+        page: 0,
+        init: function() {
+            this.fetch();
+        },
+        fetch: function() {
+            let pageNumber = this.page + 1;
+            $.getJSON('<?= $this->url('api_collection') ?>?page=' + pageNumber, function(data) {
+                $('#articles button#more').addClass('disabled');
+                data.forEach(function(item){
+                    let article = $('<article/>');
+                    $('<h2/>', { text: item.title }).appendTo(article);
+                    $('<aside/>', { text: 'Par ' + item.author + ', le ' + item.date_add }).appendTo(article);
+                    $('<div/>', { text: item.content }).appendTo(article);
+
+                    article.appendTo('#articles');
+                    $('#articles button#more').removeClass('disabled');
+                });
+                $('#more').remove();
+                $('<button/>', { class: "btn btn-default", id: "more", text: "Plus d'articles" }).appendTo('#articles');
+                app.page++;
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+                if (jqXHR.responseJSON.type == "InvalidArgumentException") {
+                    $('#more').remove();
+                    $('<div/>', { class: "alert alert-info", text: "Il n'y a pas plus d'articles pour le moment." }).appendTo('#articles');
+                }
+            });
+        }
+    };
+    $(function() {
+        app.init();
+        $('#articles').on('click', '#more', function() {
+            app.fetch();
         });
     });
 </script>

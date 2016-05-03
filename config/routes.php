@@ -38,4 +38,10 @@ return [
         'Admin#search',
         'admin_search',
     ],
+    [
+        'GET',
+        '/api/article',
+        'Api#collection',
+        'api_collection',
+    ],
 ];
