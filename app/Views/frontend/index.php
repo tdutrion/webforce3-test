@@ -5,13 +5,13 @@
     <div class="flexslider">
         <ul class="slides">
             <li>
-                <img src="http://lorempixel.com/600/150/cats/fun" />
+                <img src="https://unsplash.it/600/150/?random" />
             </li>
             <li>
-                <img src="http://lorempixel.com/600/150/cats/dogs" />
+                <img src="https://unsplash.it/600/150/?random" />
             </li>
             <li>
-                <img src="http://lorempixel.com/600/150/" />
+                <img src="https://unsplash.it/600/150/?random" />
             </li>
         </ul>
     </div>
