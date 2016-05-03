@@ -25,7 +25,6 @@ if (is_file('../config/config.local.php')) {
 }
 $wRoutes = require('../config/routes.php');
 
-debug($wConfig);
 // create the application based on the given configuration
 $app = new W\App($wRoutes, $wConfig);
 

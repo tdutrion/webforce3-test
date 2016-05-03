@@ -2,9 +2,7 @@
 
 namespace Controller;
 
-use W\Controller\Controller;
-
-class FrontendController extends Controller
+class FrontendController extends BaseController
 {
     /**
      * Page d'accueil par défaut.

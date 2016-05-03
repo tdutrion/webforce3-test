@@ -50,4 +50,11 @@ return [
 
     // name of the route for login form
     'security_login_route_name' => 'login',
+
+    // +---------------------------------------------------------------------------------------------------------------+
+    // | administration                                                                                                |
+    // +---------------------------------------------------------------------------------------------------------------+
+
+    // max number of records to display in the admin interface
+    'admin_pagination_limit' => 10,
 ];
