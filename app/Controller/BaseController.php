@@ -48,7 +48,7 @@ class BaseController extends Controller
             return $value;
         });
         $engine->registerFunction('highlight', function ($string, $term) {
-            return preg_replace("/({$term})/", '<strong class="highlight">$1</strong>', $string);
+            return preg_replace("/({$term})/i", '<strong class="highlight">$1</strong>', $string);
         });
 
         $app = getApp();
