@@ -85,25 +85,27 @@ class AdminController extends BaseController
         if ($_FILES['import']['error']) {
             $errors[] = 'Une erreur est survenue pendant le chargement du fichier.';
         }
-        $mime = mime_content_type($_FILES['import']['tmp_name']);
-        if (!in_array($mime, ['text/plain', 'application/json'])) {
-            $errors[] = "Le fichier soumis n'est pas du type attendu (application/json ou text/plain)";
-        }
-        $pathInfos = pathinfo($_FILES['import']['name']);
-        if (strtolower($pathInfos['extension']) !== 'json') {
-            $errors[] = "Le fichier soumis n'a pas l'extension attendue (.json)";
-        }
+        if (empty($errors)) {
+            $mime = mime_content_type($_FILES['import']['tmp_name']);
+            if (!in_array($mime, ['text/plain', 'application/json'])) {
+                $errors[] = "Le fichier soumis n'est pas du type attendu (application/json ou text/plain)";
+            }
+            $pathInfos = pathinfo($_FILES['import']['name']);
+            if (strtolower($pathInfos['extension']) !== 'json') {
+                $errors[] = "Le fichier soumis n'a pas l'extension attendue (.json)";
+            }
 
-        $content = file_get_contents($_FILES['import']['tmp_name']);
-        unlink($_FILES['import']['tmp_name']);
+            $content = file_get_contents($_FILES['import']['tmp_name']);
+            unlink($_FILES['import']['tmp_name']);
 
-        if (!$content) {
-            $errors[] = "Le fichier soumis n'a pas pu être lu.";
-        }
+            if (!$content) {
+                $errors[] = "Le fichier soumis n'a pas pu être lu.";
+            }
 
-        $articles = json_decode($content, true);
-        if (!is_array($articles)) {
-            $errors[] = "Aucun article n'a pu être récupéré (problème de format de JSON).";
+            $articles = json_decode($content, true);
+            if (!is_array($articles)) {
+                $errors[] = "Aucun article n'a pu être récupéré (problème de format de JSON).";
+            }
         }
 
         if (!empty($errors)) {
